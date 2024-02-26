@@ -6,6 +6,12 @@ import DangerButton from "@/Components/DangerButton";
 import Modal from "@/Components/Modal";
 
 export default function Note({ note }) {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleDeleteNote = () => {
+        setShowDeleteModal(false);
+    };
+
     return (
         <div className="note" key={note.id}>
             {note.content}
@@ -15,16 +21,31 @@ export default function Note({ note }) {
                     method="get"
                     as="button"
                 >
-                    <SecondaryButton children={"edit"}></SecondaryButton>
+                    <SecondaryButton>Edit</SecondaryButton>
                 </InertiaLink>
+                <SecondaryButton onClick={() => setShowDeleteModal(true)}>
+                    Delete
+                </SecondaryButton>
+            </div>
+            <Modal
+                show={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+            >
+                <p>
+                    Are you sure you want to delete the note: "{note.content}"?
+                </p>
+                <SecondaryButton onClick={() => setShowDeleteModal(false)}>
+                    Cancel
+                </SecondaryButton>
                 <InertiaLink
+                    onClick={handleDeleteNote}
                     href={route("notes.delete", note.id)}
                     method="delete"
                     as="button"
                 >
-                    <DangerButton children={"delete"}></DangerButton>
+                    <DangerButton>Delete</DangerButton>
                 </InertiaLink>
-            </div>
+            </Modal>
         </div>
     );
 }
