@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    color: white;
+}
+
+.note {
+    width: 200px;
+    height: 200px;
+    background-color: pink;
+    color: black;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.note button {
+    color: red;
+}
+
+textarea {
+    color: black;
+}
