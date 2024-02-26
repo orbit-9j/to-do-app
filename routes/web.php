@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/saveNote', [NoteController::class, 'saveNew'])->name('notes.save');
     Route::get('/edit-note/{note}', [NoteController::class, 'editNote'])->name('notes.edit');
     Route::patch('/update-note/{note}', [NoteController::class, 'updateNote'])->name('notes.update');
+    Route::delete('/delete-note/{note}', [NoteController::class, 'deleteNote'])->name('notes.delete');
 });
 
 

@@ -5,6 +5,7 @@ import { InertiaLink } from "@inertiajs/inertia-react";
 
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
+import Modal from "@/Components/Modal";
 
 export default function All({ auth, notes }) {
     const [filteredNotes, setFilteredNotes] = useState([]);
@@ -29,9 +30,13 @@ export default function All({ auth, notes }) {
                                 children={"edit"}
                             ></SecondaryButton>
                         </InertiaLink>
-                        <form>
+                        <InertiaLink
+                            href={route("notes.delete", note.id)}
+                            method="delete"
+                            as="button"
+                        >
                             <DangerButton children={"delete"}></DangerButton>
-                        </form>
+                        </InertiaLink>
                     </div>
                 </div>
             ))}

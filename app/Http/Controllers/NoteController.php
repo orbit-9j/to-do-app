@@ -21,7 +21,7 @@ class NoteController extends Controller
 
     public function saveNew(Request $request)
     {
-        /* \Log::info($request->all()); */
+        \Log::info($request->all());
         $request->validate([
             'contents' => 'required',
         ]);
@@ -54,5 +54,10 @@ class NoteController extends Controller
        /* $notes = Note::all();
        return Inertia::render('Dashboard', ['notes'=> $notes]);  */
        return Inertia::location(route('dashboard'));
+    }
+
+    public function deleteNote(Note $note){
+        $note->delete();
+        return Inertia::location(route('dashboard'));
     }
 }

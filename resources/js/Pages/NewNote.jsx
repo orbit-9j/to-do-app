@@ -35,10 +35,9 @@ export default function NewNote({ onNoteAdded }) {
                     placeholder="Note text"
                     onChange={(e) => setData("contents", e.target.value)}
                 ></TextInput>
-                <SecondaryButton
-                    disabled={processing}
-                    children={"Create note"}
-                ></SecondaryButton>
+                <SecondaryButton disabled={processing} type="submit">
+                    Create note
+                </SecondaryButton>
             </form>
         </div>
     );
