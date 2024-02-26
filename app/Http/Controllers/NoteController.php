@@ -42,7 +42,7 @@ class NoteController extends Controller
         return Inertia::render("EditNote", ['note' => $note]);
     }
 
-    public function updateNote(Note $note, Request $request): RedirectResponse {
+    public function updateNote(Note $note, Request $request){
        $note->update([
         "content"=> Crypt::encryptString($request->content),
         "done"=> $request->done,

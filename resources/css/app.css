@@ -18,9 +18,9 @@ body {
     flex-direction: column;
 }
 
-.note button {
+/* .note button {
     color: red;
-}
+} */
 
 textarea {
     color: black;

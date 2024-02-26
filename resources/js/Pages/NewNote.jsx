@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
+import SecondaryButton from "@/Components/SecondaryButton";
+import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/InputLabel";
+
 export default function NewNote({ onNoteAdded }) {
     const { data, setData, post, processing } = useForm();
     const [successMessage, setSuccessMessage] = useState(null);
@@ -22,15 +26,19 @@ export default function NewNote({ onNoteAdded }) {
             <h3>New note</h3>
             {successMessage && <p>{successMessage}</p>}
             <form method="post" onSubmit={handleSubmit} acceptCharset="UTF-8">
-                <label htmlFor="contents">Note contents</label>
-                <textarea
+                <InputLabel
+                    htmlFor="contents"
+                    value={"Note contents"}
+                ></InputLabel>
+                <TextInput
                     name="contents"
                     placeholder="Note text"
                     onChange={(e) => setData("contents", e.target.value)}
-                ></textarea>
-                <button type="submit" disabled={processing}>
-                    Create note
-                </button>
+                ></TextInput>
+                <SecondaryButton
+                    disabled={processing}
+                    children={"Create note"}
+                ></SecondaryButton>
             </form>
         </div>
     );

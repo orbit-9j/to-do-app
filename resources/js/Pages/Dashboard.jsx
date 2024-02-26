@@ -6,6 +6,8 @@ import All from "./All";
 import NewNote from "./NewNote";
 import EditNote from "./EditNote";
 
+import PrimaryButton from "@/Components/PrimaryButton";
+
 export default function Dashboard({ auth, notes }) {
     const [showNewNote, setShowNewNote] = useState(false);
 
@@ -29,7 +31,7 @@ export default function Dashboard({ auth, notes }) {
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         My notes
                     </h2>
-                    <button onClick={toggleVisibility}>+</button>
+                    <PrimaryButton onClick={toggleVisibility}>+</PrimaryButton>
                 </div>
             }
         >

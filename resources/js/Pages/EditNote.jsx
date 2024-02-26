@@ -1,8 +1,13 @@
-import InputError from "@/Components/InputError";
-import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+import InputError from "@/Components/InputError";
+import PrimaryButton from "@/Components/PrimaryButton";
+import Checkbox from "@/Components/Checkbox";
+import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/InputLabel";
+
 export default function EditNote({ auth, note }) {
     const { data, setData, patch, processing, recentlySuccessful, errors } =
         useForm({
@@ -19,21 +24,25 @@ export default function EditNote({ auth, note }) {
         <AuthenticatedLayout user={auth.user}>
             <form onSubmit={handleSubmit}>
                 {/* <InputError message={errors} /> */} {/* throws error */}
-                <label htmlFor="newText"></label>
-                <textarea
+                <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
+                <TextInput
                     name="newText"
                     value={data.content}
                     onChange={(e) => setData("content", e.target.value)}
-                ></textarea>
-                <label htmlFor="completed">Completed?</label>
-                <input
+                ></TextInput>
+                <InputLabel
+                    htmlFor="completed"
+                    value={"Completed?"}
+                ></InputLabel>
+                <Checkbox
                     name="completed"
-                    type="checkbox"
                     value={data.done}
                     onChange={(e) => setData("done", e.target.value)}
-                ></input>
-                <button disabled={processing}>Update note</button>
-                {/* <PrimaryButton></PrimaryButton> */}
+                ></Checkbox>
+                <PrimaryButton
+                    disabled={processing}
+                    children={"Update note"}
+                ></PrimaryButton>
             </form>
         </AuthenticatedLayout>
     );

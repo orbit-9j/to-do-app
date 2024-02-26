@@ -3,6 +3,9 @@ import { useState } from "react";
 import EditNote from "./EditNote";
 import { InertiaLink } from "@inertiajs/inertia-react";
 
+import SecondaryButton from "@/Components/SecondaryButton";
+import DangerButton from "@/Components/DangerButton";
+
 export default function All({ auth, notes }) {
     const [filteredNotes, setFilteredNotes] = useState([]);
 
@@ -16,17 +19,20 @@ export default function All({ auth, notes }) {
             {filteredNotes.map((note) => (
                 <div className="note" key={note.id}>
                     {note.content}
-                    <InertiaLink
-                        href={route("notes.edit", note.id)}
-                        method="get"
-                        as="button"
-                    >
-                        edit
-                    </InertiaLink>
-                    <form></form>
-                    <form>
-                        <button>delete</button>
-                    </form>
+                    <div>
+                        <InertiaLink
+                            href={route("notes.edit", note.id)}
+                            method="get"
+                            as="button"
+                        >
+                            <SecondaryButton
+                                children={"edit"}
+                            ></SecondaryButton>
+                        </InertiaLink>
+                        <form>
+                            <DangerButton children={"delete"}></DangerButton>
+                        </form>
+                    </div>
                 </div>
             ))}
         </div>
