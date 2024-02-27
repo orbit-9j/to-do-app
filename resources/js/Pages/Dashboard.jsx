@@ -8,7 +8,7 @@ import EditNote from "./EditNote";
 
 import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function Dashboard({ auth, notes }) {
+export default function Dashboard({ auth, notes, edit }) {
     const [showNewNote, setShowNewNote] = useState(false);
 
     const toggleVisibility = () => {
@@ -38,7 +38,7 @@ export default function Dashboard({ auth, notes }) {
             <Head title="My notes" />
             {showNewNote && <NewNote onNoteAdded={handleNoteAdded} />}
             <div>
-                <All notes={notes} auth={auth} />
+                <All notes={notes} auth={auth} edit={edit} />
             </div>
         </AuthenticatedLayout>
     );

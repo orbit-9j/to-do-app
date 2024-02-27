@@ -1,7 +1,5 @@
 import { useForm } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Checkbox from "@/Components/Checkbox";
@@ -21,29 +19,24 @@ export default function EditNote({ auth, note }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user}>
-            <form onSubmit={handleSubmit}>
-                {/* <InputError message={errors} /> */} {/* throws error */}
-                <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
-                <TextInput
-                    name="newText"
-                    value={data.content}
-                    onChange={(e) => setData("content", e.target.value)}
-                ></TextInput>
-                <InputLabel
-                    htmlFor="completed"
-                    value={"Completed?"}
-                ></InputLabel>
-                <Checkbox
-                    name="completed"
-                    value={data.done}
-                    onChange={(e) => setData("done", e.target.value)}
-                ></Checkbox>
-                <PrimaryButton
-                    disabled={processing}
-                    children={"Update note"}
-                ></PrimaryButton>
-            </form>
-        </AuthenticatedLayout>
+        <form onSubmit={handleSubmit}>
+            {/* <InputError message={errors} /> */} {/* throws error */}
+            <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
+            <TextInput
+                name="newText"
+                value={data.content}
+                onChange={(e) => setData("content", e.target.value)}
+            ></TextInput>
+            <InputLabel htmlFor="completed" value={"Completed?"}></InputLabel>
+            <Checkbox
+                name="completed"
+                value={data.done}
+                onChange={(e) => setData("done", e.target.value)}
+            ></Checkbox>
+            <PrimaryButton
+                disabled={processing}
+                children={"Update note"}
+            ></PrimaryButton>
+        </form>
     );
 }

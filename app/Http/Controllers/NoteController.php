@@ -16,7 +16,7 @@ class NoteController extends Controller
             $note->content = Crypt::decryptString($note->content);
             return $note;
         });
-        return Inertia::render('Dashboard', ['notes'=> $notes]); 
+        return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]); 
     }
 
     public function saveNew(Request $request)
@@ -34,12 +34,18 @@ class NoteController extends Controller
         
         $newNote->save();
         
-        return Inertia::location(route('dashboard'));
+        return Inertia::location(route('Dashboard', ["edit" =>false]));
     }
 
     public function editNote(Note $note){
         $note->content = Crypt::decryptString($note->content);
-        return Inertia::render("EditNote", ['note' => $note]);
+
+        $notes = Note::all();
+        $notes->transform(function ($note) {
+            $note->content = Crypt::decryptString($note->content);
+            return $note;
+        });
+        return Inertia::render ("Dashboard", ['notes' => $notes, "edit" =>true]);
     }
 
     public function updateNote(Note $note, Request $request){
@@ -47,17 +53,11 @@ class NoteController extends Controller
         "content"=> Crypt::encryptString($request->content),
         "done"=> $request->done,
        ]);
-       /* $note->update([
-        "content"=> $request->content,
-        "done"=> $request->done,
-       ]); */
-       /* $notes = Note::all();
-       return Inertia::render('Dashboard', ['notes'=> $notes]);  */
-       return Inertia::location(route('dashboard'));
+       return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 
     public function deleteNote(Note $note){
         $note->delete();
-        return Inertia::location(route('dashboard'));
+        return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 }
