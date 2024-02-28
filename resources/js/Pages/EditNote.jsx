@@ -14,17 +14,17 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
             done: note.done,
         });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        patch(route("notes.update", note.id), { preserveScroll: true })
-            .then(() => {
-                // Call the function to finish editing
-                onFinishEdit();
-            })
-            .catch((errors) => {
-                // Handle errors if necessary
-                console.error(errors);
+        try {
+            await patch(route("notes.update", note.id), {
+                preserveScroll: true,
             });
+            onFinishEdit();
+        } catch (error) {
+            console.error(error);
+            // Handle error if necessary
+        }
     };
 
     const handleCancel = () => {
@@ -32,7 +32,10 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="note">
+        <form
+            onSubmit={handleSubmit}
+            className={`note ${note.done ? "done" : ""}`}
+        >
             {/* <InputError message={errors} /> */} {/* throws error */}
             <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
             <TextInput
@@ -43,8 +46,11 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
             <InputLabel htmlFor="completed" value={"Completed?"}></InputLabel>
             <Checkbox
                 name="completed"
-                value={data.done}
-                onChange={(e) => setData("done", e.target.value)}
+                checked={data.done}
+                onChange={(e) => {
+                    setData("done", e.target.checked);
+                    console.log(e.target.checked); // Log the value of the checkbox
+                }}
             ></Checkbox>
             <PrimaryButton
                 disabled={processing}

@@ -34,7 +34,7 @@ class NoteController extends Controller
         
         $newNote->save();
         
-        return Inertia::location(route('Dashboard', ["edit" =>false]));
+        return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 
     public function editNote(Note $note){
@@ -51,8 +51,9 @@ class NoteController extends Controller
     public function updateNote(Note $note, Request $request){
        $note->update([
         "content"=> Crypt::encryptString($request->content),
-        "done"=> $request->done,
+        "done"=> $request->input('done'),
        ]);
+       //dd($note->done); 
        return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 

@@ -12,7 +12,7 @@ export default function Note({ note, onEdit }) {
     };
 
     return (
-        <div className="note" key={note.id}>
+        <div className={`note ${note.done ? "done" : ""}`} key={note.id}>
             {note.content}
             <div>
                 <SecondaryButton onClick={() => onEdit(note.id)}>

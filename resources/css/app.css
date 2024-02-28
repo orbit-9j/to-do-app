@@ -18,6 +18,9 @@ body {
     flex-direction: column;
 }
 
+.done {
+    background-color: rgb(159, 255, 33);
+}
 /* .note button {
     color: red;
 } */
@@ -30,4 +33,5 @@ textarea {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    flex-wrap: wrap;
 }

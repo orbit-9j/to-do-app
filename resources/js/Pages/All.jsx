@@ -19,7 +19,7 @@ export default function All({
         setFilteredNotes(notes.filter((note) => note.user_id === auth.user.id));
     }, [notes, auth.user.id]);
 
-    console.log("all: ", edit);
+    /* console.log("all: ", edit); */
 
     return (
         <div id="grid">

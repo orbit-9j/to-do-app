@@ -41,7 +41,7 @@ export default function Dashboard({ auth, notes, edit }) {
         setEditingNoteId(null); // Reset editingNoteId
     };
 
-    console.log("dashboard: ", edit);
+    /* console.log("dashboard: ", edit); */
 
     return (
         <AuthenticatedLayout
