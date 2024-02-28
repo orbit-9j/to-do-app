@@ -1,11 +1,10 @@
 import { useState } from "react";
-
 import { InertiaLink } from "@inertiajs/inertia-react";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
 import Modal from "@/Components/Modal";
 
-export default function Note({ note }) {
+export default function Note({ note, onEdit }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleDeleteNote = () => {
@@ -16,13 +15,9 @@ export default function Note({ note }) {
         <div className="note" key={note.id}>
             {note.content}
             <div>
-                <InertiaLink
-                    href={route("notes.edit", note.id)}
-                    method="get"
-                    as="button"
-                >
-                    <SecondaryButton>Edit</SecondaryButton>
-                </InertiaLink>
+                <SecondaryButton onClick={() => onEdit(note.id)}>
+                    Edit
+                </SecondaryButton>
                 <SecondaryButton onClick={() => setShowDeleteModal(true)}>
                     Delete
                 </SecondaryButton>

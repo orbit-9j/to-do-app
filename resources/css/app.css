@@ -9,7 +9,7 @@ body {
 .note {
     width: 200px;
     height: 200px;
-    background-color: pink;
+    background-color: orange;
     color: black;
     /* text-align: center; */
     display: flex;
@@ -24,4 +24,10 @@ body {
 
 textarea {
     color: black;
+}
+
+#grid {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
