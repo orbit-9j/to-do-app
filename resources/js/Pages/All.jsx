@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import EditNote from "./EditNote";
 import Note from "./Note";
 
@@ -12,18 +10,9 @@ export default function All({
     onFinishEdit,
     edit,
 }) {
-    const [filteredNotes, setFilteredNotes] = useState([]);
-
-    // Filter notes based on current user's ID
-    useState(() => {
-        setFilteredNotes(notes.filter((note) => note.user_id === auth.user.id));
-    }, [notes, auth.user.id]);
-
-    /* console.log("all: ", edit); */
-
     return (
         <div id="grid">
-            {filteredNotes.map((note) => {
+            {notes.map((note) => {
                 if (edit && editingNoteId === note.id) {
                     // Render EditNote if edit is true and the note is being edited
                     return (

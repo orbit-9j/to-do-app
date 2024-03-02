@@ -1,53 +1,44 @@
-export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
-    const { data, setData, patch, processing, recentlySuccessful, errors } =
-        useForm({
-            content: note.content,
-            done: note.done,
+import { useState } from "react";
+import { useForm } from "@inertiajs/react";
+
+import SecondaryButton from "@/Components/SecondaryButton";
+import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/InputLabel";
+
+export default function NewNote({ onNoteAdded }) {
+    const { data, setData, post, processing } = useForm();
+    const [successMessage, setSuccessMessage] = useState(null);
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+
+        post(route("notes.save"), {
+            content: data.contents,
+            onSuccess: () => {
+                setSuccessMessage("Note added!");
+                onNoteAdded(); // Call the callback function to hide the NewNote component
+            },
         });
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await patch(route("notes.update", note.id), {
-                preserveScroll: true,
-                content: data.content, // Include content in the request
-                done: data.done, // Include done status in the request
-            });
-            onFinishEdit();
-        } catch (error) {
-            console.error(error);
-            // Handle error if necessary
-        }
-    };
-
-    const handleCancel = () => {
-        onCancelEdit(); // Call onCancelEdit function when cancel button is clicked
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className={`note ${note.done ? "done" : ""}`}
-        >
-            {/* <InputError message={errors} /> */} {/* throws error */}
-            <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
-            <TextInput
-                name="newText"
-                value={data.content}
-                onChange={(e) => setData("content", e.target.value)}
-            ></TextInput>
-            <InputLabel htmlFor="completed" value={"Completed?"}></InputLabel>
-            <Checkbox
-                name="completed"
-                checked={data.done}
-                onChange={(e) => setData("done", e.target.checked)}
-            ></Checkbox>
-            <PrimaryButton
-                disabled={processing}
-                children={"Update note"}
-                type="submit"
-            ></PrimaryButton>
-            <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
-        </form>
+        <div>
+            <h3>New note</h3>
+            {successMessage && <p>{successMessage}</p>}
+            <form method="post" onSubmit={handleSubmit} acceptCharset="UTF-8">
+                <InputLabel
+                    htmlFor="contents"
+                    value={"Note contents"}
+                ></InputLabel>
+                <TextInput
+                    name="contents"
+                    placeholder="Note text"
+                    onChange={(e) => setData("contents", e.target.value)}
+                ></TextInput>
+                <SecondaryButton disabled={processing} type="submit">
+                    Create note
+                </SecondaryButton>
+            </form>
+        </div>
     );
 }

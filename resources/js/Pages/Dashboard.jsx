@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 import All from "./All";
 import NewNote from "./NewNote";
-import EditNote from "./EditNote";
 
 import PrimaryButton from "@/Components/PrimaryButton";
 
@@ -19,6 +18,7 @@ export default function Dashboard({ auth, notes, edit }) {
         }
     };
 
+    console.log(showNewNote);
     const handleNoteAdded = () => {
         setShowNewNote(false);
     };

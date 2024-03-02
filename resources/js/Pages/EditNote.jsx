@@ -1,6 +1,5 @@
 import { useForm } from "@inertiajs/react";
 
-import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import Checkbox from "@/Components/Checkbox";
@@ -36,7 +35,6 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
             onSubmit={handleSubmit}
             className={`note ${note.done ? "done" : ""}`}
         >
-            {/* <InputError message={errors} /> */} {/* throws error */}
             <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
             <TextInput
                 name="newText"

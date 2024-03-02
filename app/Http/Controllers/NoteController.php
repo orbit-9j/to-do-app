@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Crypt;
 class NoteController extends Controller
 {
     public function displayAll()  {
-        $notes = Note::all();
+        $user = Auth::user();
+        $notes = $user->notes;
         $notes->transform(function ($note) {
             $note->content = Crypt::decryptString($note->content);
             return $note;
@@ -40,7 +41,8 @@ class NoteController extends Controller
     public function editNote(Note $note){
         $note->content = Crypt::decryptString($note->content);
 
-        $notes = Note::all();
+        $user = Auth::user();
+        $notes = $user->notes;
         $notes->transform(function ($note) {
             $note->content = Crypt::decryptString($note->content);
             return $note;
