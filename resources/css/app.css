@@ -6,32 +6,12 @@ body {
     color: white;
 }
 
-.note {
-    width: 200px;
-    height: 200px;
-    background-color: orange;
-    color: black;
-    /* text-align: center; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+@layer components {
+    .note {
+        @apply text-gray-800 w-[260px] h-[260px] flex flex-col text-center p-3 rounded-sm gap-2 justify-between;
+    }
 
-.done {
-    background-color: rgb(159, 255, 33);
-}
-/* .note button {
-    color: red;
-} */
-
-textarea {
-    color: black;
-}
-
-#grid {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    flex-wrap: wrap;
+    #big {
+        @apply text-xl  py-1;
+    }
 }

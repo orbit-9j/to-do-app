@@ -33,29 +33,42 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className={`note ${note.done ? "done" : ""}`}
+            className={`note ${note.done ? "bg-lime-400" : "bg-yellow-500"}`}
         >
+            <h2 className="font-bold">Edit note</h2>
             <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
             <TextInput
                 name="newText"
                 value={data.content}
                 onChange={(e) => setData("content", e.target.value)}
             ></TextInput>
-            <InputLabel htmlFor="completed" value={"Completed?"}></InputLabel>
-            <Checkbox
-                name="completed"
-                checked={data.done}
-                onChange={(e) => {
-                    setData("done", e.target.checked);
-                    console.log(e.target.checked); // Log the value of the checkbox
-                }}
-            ></Checkbox>
-            <PrimaryButton
-                disabled={processing}
-                children={"Update note"}
-                type="submit"
-            ></PrimaryButton>
-            <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
+            <div className="flex gap-2 justify-center">
+                <InputLabel
+                    htmlFor="completed"
+                    value={"Completed?"}
+                ></InputLabel>
+                <Checkbox
+                    name="completed"
+                    checked={data.done}
+                    onChange={(e) => {
+                        setData("done", e.target.checked);
+                        console.log(e.target.checked); // Log the value of the checkbox
+                    }}
+                ></Checkbox>
+            </div>
+
+            <div className="flex gap-2">
+                <PrimaryButton
+                    className="w-full"
+                    disabled={processing}
+                    type="submit"
+                >
+                    Update
+                </PrimaryButton>
+                <SecondaryButton className="w-full" onClick={handleCancel}>
+                    Cancel
+                </SecondaryButton>
+            </div>
         </form>
     );
 }

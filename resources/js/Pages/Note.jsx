@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import SecondaryButton from "@/Components/SecondaryButton";
+import PrimaryButton from "@/Components/PrimaryButton";
 import DangerButton from "@/Components/DangerButton";
 import Modal from "@/Components/Modal";
 
@@ -12,13 +13,25 @@ export default function Note({ note, onEdit }) {
     };
 
     return (
-        <div className={`note ${note.done ? "done" : ""}`} key={note.id}>
-            {note.content}
-            <div>
-                <SecondaryButton onClick={() => onEdit(note.id)}>
+        <div
+            className={`note ${
+                note.done ? "bg-lime-400" : "bg-yellow-500"
+            }  align-center `}
+            key={note.id}
+        >
+            <div className=" overflow-auto ">{note.content}</div>
+
+            <div className="flex gap-2">
+                <PrimaryButton
+                    className="w-full"
+                    onClick={() => onEdit(note.id)}
+                >
                     Edit
-                </SecondaryButton>
-                <SecondaryButton onClick={() => setShowDeleteModal(true)}>
+                </PrimaryButton>
+                <SecondaryButton
+                    className="w-full"
+                    onClick={() => setShowDeleteModal(true)}
+                >
                     Delete
                 </SecondaryButton>
             </div>
@@ -29,17 +42,19 @@ export default function Note({ note, onEdit }) {
                 <p>
                     Are you sure you want to delete the note: "{note.content}"?
                 </p>
-                <SecondaryButton onClick={() => setShowDeleteModal(false)}>
-                    Cancel
-                </SecondaryButton>
-                <InertiaLink
-                    onClick={handleDeleteNote}
-                    href={route("notes.delete", note.id)}
-                    method="delete"
-                    as="button"
-                >
-                    <DangerButton>Delete</DangerButton>
-                </InertiaLink>
+                <div className="flex gap-2 justify-center">
+                    <SecondaryButton onClick={() => setShowDeleteModal(false)}>
+                        Cancel
+                    </SecondaryButton>
+                    <InertiaLink
+                        onClick={handleDeleteNote}
+                        href={route("notes.delete", note.id)}
+                        method="delete"
+                        as="button"
+                    >
+                        <DangerButton>Delete</DangerButton>
+                    </InertiaLink>
+                </div>
             </Modal>
         </div>
     );

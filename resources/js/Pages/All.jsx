@@ -11,7 +11,7 @@ export default function All({
     edit,
 }) {
     return (
-        <div id="grid">
+        <div className="flex flex-row gap-3 flex-wrap p-10  justify-center">
             {notes.map((note) => {
                 if (edit && editingNoteId === note.id) {
                     // Render EditNote if edit is true and the note is being edited

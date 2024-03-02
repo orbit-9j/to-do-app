@@ -18,7 +18,6 @@ export default function Dashboard({ auth, notes, edit }) {
         }
     };
 
-    console.log(showNewNote);
     const handleNoteAdded = () => {
         setShowNewNote(false);
     };
@@ -48,15 +47,19 @@ export default function Dashboard({ auth, notes, edit }) {
             user={auth.user}
             header={
                 <div>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <div className="flex flex-row items-center justify-center gap-3 mb-3">
+                    <h1 className="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight ">
                         My notes
-                    </h2>
-                    <PrimaryButton onClick={toggleVisibility}>+</PrimaryButton>
+                    </h1>
+                    <PrimaryButton id="big" aria-label="Create new note"  onClick={toggleVisibility}>+</PrimaryButton>
+                </div >
+                {showNewNote && <NewNote onNoteAdded={handleNoteAdded} />}
                 </div>
+                
             }
         >
             <Head title="My notes" />
-            {showNewNote && <NewNote onNoteAdded={handleNoteAdded} />}
+            
             <div>
                 <All
                     notes={notes}
