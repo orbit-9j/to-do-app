@@ -3,7 +3,7 @@ import { useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import Checkbox from "@/Components/Checkbox";
-import TextInput from "@/Components/TextInput";
+import TextArea from "@/Components/TextArea";
 import InputLabel from "@/Components/InputLabel";
 
 export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
@@ -35,15 +35,20 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
             onSubmit={handleSubmit}
             className={`note ${note.done ? "bg-lime-400" : "bg-yellow-500"}`}
         >
-            <h2 className="font-bold">Edit note</h2>
-            <InputLabel value={"New text"} htmlFor="newText"></InputLabel>
-            <TextInput
+            <h2 className="font-bold text-xl">Edit note</h2>
+            <InputLabel
+                className=".label-dark"
+                value={"New text"}
+                htmlFor="newText"
+            ></InputLabel>
+            <TextArea
                 name="newText"
                 value={data.content}
                 onChange={(e) => setData("content", e.target.value)}
-            ></TextInput>
-            <div className="flex gap-2 justify-center">
+            ></TextArea>
+            <div className="flex gap-2 justify-center items-center">
                 <InputLabel
+                    className=".label-dark"
                     htmlFor="completed"
                     value={"Completed?"}
                 ></InputLabel>

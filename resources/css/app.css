@@ -8,10 +8,18 @@ body {
 
 @layer components {
     .note {
-        @apply text-gray-800 w-[260px] h-[260px] flex flex-col text-center p-3 rounded-sm gap-2 justify-between;
+        @apply text-gray-800 sm:w-[260px] sm:h-[260px] w-[300px] h-[300px] flex flex-col text-center p-4  rounded-sm gap-2 justify-between text-lg sm:text-base;
     }
 
     #big {
         @apply text-xl  py-1;
+    }
+
+    .label-white {
+        color: white;
+    }
+
+    .label-dark {
+        @apply text-gray-700 dark:text-gray-800;
     }
 }

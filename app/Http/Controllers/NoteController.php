@@ -13,11 +13,18 @@ class NoteController extends Controller
     public function displayAll()  {
         $user = Auth::user();
         $notes = $user->notes;
-        $notes->transform(function ($note) {
+        if ($notes->isEmpty()) {
+            // If there are no notes, return an empty array or any other default value
+            return Inertia::render('Dashboard', ['notes'=> [], "edit" =>false]);
+        }
+        else{
+            $notes->transform(function ($note) {
             $note->content = Crypt::decryptString($note->content);
             return $note;
         });
         return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]); 
+        }
+        
     }
 
     public function saveNew(Request $request)

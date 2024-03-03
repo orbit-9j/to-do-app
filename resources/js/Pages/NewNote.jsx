@@ -1,7 +1,7 @@
 import { useForm } from "@inertiajs/react";
 
 import SecondaryButton from "@/Components/SecondaryButton";
-import TextInput from "@/Components/TextInput";
+import TextArea from "@/Components/TextArea";
 import InputLabel from "@/Components/InputLabel";
 
 export default function NewNote({ onNoteAdded }) {
@@ -20,7 +20,7 @@ export default function NewNote({ onNoteAdded }) {
 
     return (
         <div className=" note bg-pink-400 m-auto">
-            <h2 className="font-bold">New note</h2>
+            <h2 className="font-bold text-xl">New note</h2>
             <form
                 method="post"
                 onSubmit={handleSubmit}
@@ -29,14 +29,15 @@ export default function NewNote({ onNoteAdded }) {
             >
                 <div>
                     <InputLabel
+                        className=".label-dark"
                         htmlFor="contents"
                         value={"Note contents"}
                     ></InputLabel>
-                    <TextInput
+                    <TextArea
                         name="contents"
                         placeholder="Note text"
                         onChange={(e) => setData("contents", e.target.value)}
-                    ></TextInput>
+                    ></TextArea>
                 </div>
 
                 <SecondaryButton disabled={processing} type="submit">
