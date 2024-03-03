@@ -10,38 +10,46 @@ use Illuminate\Support\Facades\Crypt;
 
 class NoteController extends Controller
 {
-    public function displayAll()  {
-        $user = Auth::user();
-        $notes = $user->notes;
-        if ($notes->isEmpty()) {
-            // If there are no notes, return an empty array or any other default value
-            return Inertia::render('Dashboard', ['notes'=> [], "edit" =>false]);
-            
-        }
-        else{
-            $notes->transform(function ($note) {
+    private function decryptNotes($notes){
+        return $notes->transform(function ($note) {
             $note->content = Crypt::decryptString($note->content);
             return $note;
         });
-        return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]); 
+    }
+
+    //load in all of the notes by the user who is currently logged in
+    private function getAllNotes(){
+        $user = Auth::user(); //get current user
+        return $user->notes;
+    }
+
+    //display all of the user's notes on the dashboard
+    public function displayAll()  {
+        $notes = $this->getAllNotes();
+
+        if ($notes->isEmpty()) {
+            $notes=[];
         }
-        
+        else{
+            $notes = $this->decryptNotes($notes);   
+        }
+
+        return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]);
     }
 
     public function saveNew(Request $request)
     {
-        \Log::info($request->all());
+        //do not proceed if input is empty
         $request->validate([
             'contents' => 'required',
         ]);
 
-        $newNote = new Note;
-        $newNote->user_id = Auth::id();
-        $newNote->content = Crypt::encryptString($request->input('contents'));
-        //$newNote->content = $request->input('contents');
-        $newNote->done = false;
-        
-        $newNote->save();
+        //create note instance and assign values to it
+       $newNote = Note::create([
+            'user_id' => Auth::id(),
+            'content' => Crypt::encryptString($request->input('contents')),
+            'done' => false,
+        ]);
         
         return Inertia::location(route('dashboard', ["edit" =>false]));
     }
@@ -49,12 +57,8 @@ class NoteController extends Controller
     public function editNote(Note $note){
         $note->content = Crypt::decryptString($note->content);
 
-        $user = Auth::user();
-        $notes = $user->notes;
-        $notes->transform(function ($note) {
-            $note->content = Crypt::decryptString($note->content);
-            return $note;
-        });
+        $notes = $this->decryptNotes($this->getAllNotes());
+
         return Inertia::render ("Dashboard", ['notes' => $notes, "edit" =>true]);
     }
 
@@ -63,7 +67,6 @@ class NoteController extends Controller
         "content"=> Crypt::encryptString($request->content),
         "done"=> $request->input('done'),
        ]);
-       //dd($note->done); 
        return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 
