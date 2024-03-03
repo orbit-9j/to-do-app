@@ -10,6 +10,7 @@ export default function All({
     onFinishEdit,
     edit,
 }) {
+    notes.sort((a, b) => a.done - b.done);
     return (
         <div className="flex flex-row gap-4 flex-wrap p-10  justify-center">
             {notes.map((note) => {

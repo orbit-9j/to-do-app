@@ -19,7 +19,7 @@ export default function Note({ note, onEdit }) {
             }  align-center `}
             key={note.id}
         >
-            <div className=" overflow-auto ">{note.content}</div>
+            <section className=" overflow-auto ">{note.content}</section>
 
             <div className="flex gap-2">
                 <PrimaryButton

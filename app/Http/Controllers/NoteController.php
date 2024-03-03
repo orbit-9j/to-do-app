@@ -16,6 +16,7 @@ class NoteController extends Controller
         if ($notes->isEmpty()) {
             // If there are no notes, return an empty array or any other default value
             return Inertia::render('Dashboard', ['notes'=> [], "edit" =>false]);
+            
         }
         else{
             $notes->transform(function ($note) {

@@ -65,17 +65,15 @@ export default function Dashboard({ auth, notes, edit }) {
         >
             <Head title="My notes" />
 
-            <div>
-                <All
-                    notes={notes}
-                    auth={auth}
-                    editingNoteId={editingNoteId}
-                    onEdit={handleEditNote}
-                    onCancelEdit={handleCancelEdit}
-                    onFinishEdit={handleFinishEdit}
-                    edit={localEdit}
-                />
-            </div>
+            <All
+                notes={notes}
+                auth={auth}
+                editingNoteId={editingNoteId}
+                onEdit={handleEditNote}
+                onCancelEdit={handleCancelEdit}
+                onFinishEdit={handleFinishEdit}
+                edit={localEdit}
+            />
         </AuthenticatedLayout>
     );
 }
