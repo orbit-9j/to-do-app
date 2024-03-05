@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [NoteController::class, 'displayAll'])->middleware(['auth', 'verified'])->name('dashboard');
 
-
+//note functionality is only available to logged in users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
