@@ -17,8 +17,8 @@ Place project folder in `htdocs` within the XAMPP folder
 Link the public directory of the project in the document root and directory, e.g.
 
 ```
-DocumentRoot "C:/xampp/htdocs/to-do app/to-do-app/public"
-<Directory "C:/xampp/htdocs/to-do app/to-do-app/public">
+DocumentRoot "C:/xampp/htdocs/to-do-app/public"
+<Directory "C:/xampp/htdocs/to-do-app/public">
 ```
 
 ## Database setup
