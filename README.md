@@ -5,6 +5,7 @@
   - Apache 2.4.58
 - Laravel 10.45.1
 - Composer 2.7.1
+- npm 8.5.0
 
 php extensions (uncomment in `php.ini`):
 - extension=pdo_mysql
