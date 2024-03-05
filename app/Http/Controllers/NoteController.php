@@ -34,7 +34,7 @@ class NoteController extends Controller
             $notes = $this->decryptNotes($notes);   
         }
 
-        return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]);
+        return Inertia::render('Dashboard', ['notes'=> $notes]);
     }
 
     //add a new note
@@ -52,15 +52,7 @@ class NoteController extends Controller
             'done' => false,
         ]);
         
-        return Inertia::location(route('dashboard', ["edit" =>false]));
-    }
-
-    //edit an existing note
-    public function editNote(Note $note){
-        //$note->content = Crypt::decryptString($note->content); //because i don't want the editing component to open in a separate page, i'm using react to conditionally render the editNote component using state variables. the routing does not concern itself with the individual note. this function is currently redundant, but may be needed if the note editing functionality were to change
-        $notes = $this->decryptNotes($this->getAllNotes());
-
-        return Inertia::render ("Dashboard", ['notes' => $notes, "edit" =>true]);
+        return Inertia::location(route('dashboard'));
     }
 
     //push changes in the note to the database
@@ -69,11 +61,11 @@ class NoteController extends Controller
         "content"=> Crypt::encryptString($request->content),
         "done"=> $request->input('done'),
        ]);
-       return Inertia::location(route('dashboard', ["edit" =>false]));
+       return Inertia::location(route('dashboard'));
     }
 
     public function deleteNote(Note $note){
         $note->delete();
-        return Inertia::location(route('dashboard', ["edit" =>false]));
+        return Inertia::location(route('dashboard'));
     }
 }

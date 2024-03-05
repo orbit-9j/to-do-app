@@ -8,7 +8,7 @@ import NewNote from "./NewNote";
 import PrimaryButton from "@/Components/PrimaryButton";
 
 //main page of the application
-export default function Dashboard({ auth, notes, edit }) {
+export default function Dashboard({ auth, notes }) {
     /* --------------------- New Note logic start ---------------------*/
     //show NewNote component only if the user clicks on the "+" button
     const [showNewNote, setShowNewNote] = useState(false);
@@ -24,7 +24,7 @@ export default function Dashboard({ auth, notes, edit }) {
 
     /* --------------------- Edit Note logic start ---------------------*/
     const [editingNoteId, setEditingNoteId] = useState(null); //store the note that is to be edited
-    const [localEdit, setLocalEdit] = useState(edit); //variable that dictates whether a note is being edited
+    const [localEdit, setLocalEdit] = useState(false); //state that dictates whether a note is being edited
 
     //set the states when editing is initiated
     const handleEditNote = (noteId) => {
