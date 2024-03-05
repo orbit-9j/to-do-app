@@ -15,6 +15,7 @@ class Note extends Model
         'done',
     ];
 
+    //establish a relationship to the user table to use in the NoteController 
     public function user()
     {
         return $this->belongsTo(User::class);

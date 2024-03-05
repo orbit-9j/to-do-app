@@ -1,7 +1,7 @@
 {
     "name": "To-do app",
     "type": "project",
-    "description": "A simple to-do app using Laravel, Inertia, and React",
+    "description": "A simple to-do app using Laravel, Inertia, and React. Styled with Tailwind",
     "keywords": ["laravel", "to-do"],
     "license": "MIT",
     "require": {

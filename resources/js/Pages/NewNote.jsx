@@ -5,15 +5,16 @@ import TextArea from "@/Components/TextArea";
 import InputLabel from "@/Components/InputLabel";
 
 export default function NewNote({ onNoteAdded }) {
+    /* inertia's own form handling */
     const { data, setData, post, processing } = useForm();
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault(); //prevent default form submission behavior
 
         post(route("notes.save"), {
             content: data.contents,
             onSuccess: () => {
-                onNoteAdded(); // Call the callback function to hide the NewNote component
+                onNoteAdded(); //hide the NewNote component on the dashboard
             },
         });
     };

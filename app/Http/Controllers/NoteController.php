@@ -20,7 +20,7 @@ class NoteController extends Controller
     //load in all of the notes by the user who is currently logged in
     private function getAllNotes(){
         $user = Auth::user(); //get current user
-        return $user->notes;
+        return $user->notes; //using the relationship established in the User model
     }
 
     //display all of the user's notes on the dashboard
@@ -37,6 +37,7 @@ class NoteController extends Controller
         return Inertia::render('Dashboard', ['notes'=> $notes, "edit" =>false]);
     }
 
+    //add a new note
     public function saveNew(Request $request)
     {
         //do not proceed if input is empty
@@ -54,14 +55,15 @@ class NoteController extends Controller
         return Inertia::location(route('dashboard', ["edit" =>false]));
     }
 
+    //edit an existing note
     public function editNote(Note $note){
-        $note->content = Crypt::decryptString($note->content);
-
+        //$note->content = Crypt::decryptString($note->content); //because i don't want the editing component to open in a separate page, i'm using react to conditionally render the editNote component using state variables. the routing does not concern itself with the individual note. this function is currently redundant, but may be needed if the note editing functionality were to change
         $notes = $this->decryptNotes($this->getAllNotes());
 
         return Inertia::render ("Dashboard", ['notes' => $notes, "edit" =>true]);
     }
 
+    //push changes in the note to the database
     public function updateNote(Note $note, Request $request){
        $note->update([
         "content"=> Crypt::encryptString($request->content),

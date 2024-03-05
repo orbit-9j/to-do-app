@@ -7,40 +7,37 @@ import NewNote from "./NewNote";
 
 import PrimaryButton from "@/Components/PrimaryButton";
 
+//main page of the application
 export default function Dashboard({ auth, notes, edit }) {
+    /* --------------------- New Note logic start ---------------------*/
+    //show NewNote component only if the user clicks on the "+" button
     const [showNewNote, setShowNewNote] = useState(false);
 
     const toggleVisibility = () => {
-        if (showNewNote == false) {
-            setShowNewNote(true);
-        } else {
-            setShowNewNote(false);
-        }
+        setShowNewNote(!showNewNote);
     };
 
     const handleNoteAdded = () => {
-        setShowNewNote(false);
+        setShowNewNote(false); //hide NewNote component when the note has been added
     };
+    /* --------------------- New Note logic end ---------------------*/
 
-    const [editingNoteId, setEditingNoteId] = useState(null);
-    const [localEdit, setLocalEdit] = useState(edit);
+    /* --------------------- Edit Note logic start ---------------------*/
+    const [editingNoteId, setEditingNoteId] = useState(null); //store the note that is to be edited
+    const [localEdit, setLocalEdit] = useState(edit); //variable that dictates whether a note is being edited
 
+    //set the states when editing is initiated
     const handleEditNote = (noteId) => {
         setEditingNoteId(noteId);
         setLocalEdit(true);
     };
 
-    const handleCancelEdit = () => {
+    //reset the states when the editing is cancelled or completed
+    const handleCloseEdit = () => {
         setEditingNoteId(null);
+        setLocalEdit(false);
     };
-
-    // Function to handle finishing edit
-    const handleFinishEdit = () => {
-        setLocalEdit(false); // Set edit to false when editing is complete
-        setEditingNoteId(null); // Reset editingNoteId
-    };
-
-    /* console.log("dashboard: ", edit); */
+    /* --------------------- Edit Note logic end ---------------------*/
 
     return (
         <AuthenticatedLayout
@@ -59,19 +56,17 @@ export default function Dashboard({ auth, notes, edit }) {
                             +
                         </PrimaryButton>
                     </div>
+                    {/* conditionally render component depending on the state */}
                     {showNewNote && <NewNote onNoteAdded={handleNoteAdded} />}
                 </div>
             }
         >
-            <Head title="My notes" />
-
+            <Head title="My notes" /> {/* page title */}
             <All
                 notes={notes}
-                auth={auth}
                 editingNoteId={editingNoteId}
                 onEdit={handleEditNote}
-                onCancelEdit={handleCancelEdit}
-                onFinishEdit={handleFinishEdit}
+                onCloseEdit={handleCloseEdit}
                 edit={localEdit}
             />
         </AuthenticatedLayout>

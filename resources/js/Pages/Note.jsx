@@ -6,11 +6,8 @@ import DangerButton from "@/Components/DangerButton";
 import Modal from "@/Components/Modal";
 
 export default function Note({ note, onEdit }) {
+    //manage the visibility of the warning pop-up on delete
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-    const handleDeleteNote = () => {
-        setShowDeleteModal(false);
-    };
 
     return (
         <div
@@ -47,7 +44,7 @@ export default function Note({ note, onEdit }) {
                         Cancel
                     </SecondaryButton>
                     <InertiaLink
-                        onClick={handleDeleteNote}
+                        onClick={() => setShowDeleteModal(false)}
                         href={route("notes.delete", note.id)}
                         method="delete"
                         as="button"

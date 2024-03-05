@@ -43,9 +43,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
+    //establish a relationship to the notes table to use in the NoteController 
     public function notes()
-{
-    return $this->hasMany(Note::class);
-}
+    {
+        return $this->hasMany(Note::class);
+    }
 
 }

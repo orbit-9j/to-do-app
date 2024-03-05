@@ -6,28 +6,23 @@ import Checkbox from "@/Components/Checkbox";
 import TextArea from "@/Components/TextArea";
 import InputLabel from "@/Components/InputLabel";
 
-export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
-    const { data, setData, patch, processing, recentlySuccessful, errors } =
-        useForm({
-            content: note.content,
-            done: note.done,
-        });
+export default function EditNote({ note, onCloseEdit }) {
+    /* inertia's own form handling */
+    const { data, setData, patch, processing } = useForm({
+        content: note.content,
+        done: note.done,
+    });
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); //prevent default form submission behavior
         try {
             await patch(route("notes.update", note.id), {
-                preserveScroll: true,
+                preserveScroll: true, //don't scroll to top on redirect
             });
-            onFinishEdit();
+            onCloseEdit();
         } catch (error) {
             console.error(error);
-            // Handle error if necessary
         }
-    };
-
-    const handleCancel = () => {
-        onCancelEdit(); // Call onCancelEdit function when cancel button is clicked
     };
 
     return (
@@ -57,7 +52,7 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
                     checked={data.done}
                     onChange={(e) => {
                         setData("done", e.target.checked);
-                        console.log(e.target.checked); // Log the value of the checkbox
+                        console.log(e.target.checked);
                     }}
                 ></Checkbox>
             </div>
@@ -70,7 +65,7 @@ export default function EditNote({ auth, note, onCancelEdit, onFinishEdit }) {
                 >
                     Update
                 </PrimaryButton>
-                <SecondaryButton className="w-full" onClick={handleCancel}>
+                <SecondaryButton className="w-full" onClick={onCloseEdit}>
                     Cancel
                 </SecondaryButton>
             </div>
