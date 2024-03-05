@@ -33,7 +33,7 @@ export default function Welcome({ auth }) {
                         </>
                     )}
                 </div>
-                <section className=" bg-gray-800 px-5 py-20 m-5 sm:m-0 sm:p-20 rounded-md flex flex-col sm:flex-row items-center flex gap-6 sm:gap-5 m-auto ">
+                <section className=" bg-gray-800 px-5 py-20 sm:m-0 sm:p-20 rounded-md flex-col sm:flex-row items-center flex gap-6 sm:gap-5 m-auto ">
                     <ApplicationLogo className="big-logo w-[150px] sm:w-[100px] h-auto stroke-current text-indigo-500 fill-current " />
                     <div className="flex flex-col gap-3 sm:gap-1 flex-auto">
                         <h1 className="text-6xl text-center sm:text-left sm:text-5xl font-bold text-indigo-500">
